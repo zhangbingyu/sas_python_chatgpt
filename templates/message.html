@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+Information
+{% endblock %}
+
+    {% block content %}
+    <script>
+        setTimeout(function() {
+            window.location.href = "{{ redirect_url }}";
+        }, 10000); // 10 seconds
+    </script>
+      <div class = "container-sm  w-25 p-2 mt-5">
+      <div class=" d-flex flex-column justify-content-center align-items-center">
+      <form action="" method="post">
+          {% for message in messages %}
+          <div> {{ message }} </div>
+          {% endfor %}
+          <div> Your will be redirected to {{ redirect_url }} in 10 seconds. </div>
+      </form>
+      
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+Sign in
+{% endblock %}
+    {% block content %}
+     
+      <div class = "container-sm  w-25 p-2 mt-5">
+      <div class=" d-flex flex-column justify-content-center align-items-center">
+      <form action="" method="post">
+          {% for message in messages %}
+          <div> {{ message }} </div>
+          {% endfor %}
+          {{ form.hidden_tag() }}
+          <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label fw-light">Password</label>
+              {{ form.password(size=32,placeholder="Your new password", class="form-control") }}
+              {% for error in form.password.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label fw-light">Repeat Password</label>
+              {{ form.password2(size=32,placeholder="Your new password again", class="form-control") }}
+
+              {% for error in form.password2.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </div>
+          <div class="mb-3">{{ form.submit(class_="form-control bg-dark text-light") }}</div>
+      </form>
+    </div>
+</div>
+{% endblock %}

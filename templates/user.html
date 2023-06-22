@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}
+Sign in
+{% endblock %}
+{% block content %}
+<div class = "container-sm  w-75 p-2 mt-5">
+<div>Welcome {{ current_user.username }}!</div>
+<div>Remaining Credits: {{ current_user.credit }}</div>
+
+<table class="table caption-top">
+    <caption>Historical Orders</caption>
+    <thead>
+        <tr>
+            <th scope="col">Order Number</th>
+            <th scope="col">Date</th>
+            <th scope="col">Prompt Tokens</th>
+            <th scope="col">Response Tokens</th>
+            <th scope="col">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+        <tr>
+            <th scope="row">{{transaction.id}}</th>
+            <td>{{transaction.date_order}}</td>
+            <td>{{transaction.input_token}}</td>
+            <td>{{transaction.output_token}}</td>
+            <td>{{transaction.price}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if transactions.pages > 1 %}
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        {% if transactions.page > 2 %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('user', page=transactions.page - 2) }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
+        {% for page in transactions.iter_pages(left_edge=0, left_current=1, right_current=1, right_edge=0) %}
+            {% if page %}
+                {% if page == transactions.page %}
+                    <li class="page-item"><a class="page-link">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('user', page=page) }}">{{ page }}</a></li>
+                {% endif %}
+            {% endif %}
+            <!-- <li class="page-item"><a class="page-link" >{{ transactions.page }}</a></li> -->
+        {% endfor %}
+        {% if transactions.page < transactions.pages - 1 %} <li class="page-item">
+            <a class="page-link" href="{{ url_for('user', page=transactions.page + 2) }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+</div>
+
+{% endblock %}
