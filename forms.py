@@ -44,6 +44,13 @@ class ResetInitialForm(FlaskForm):
                         validators=[DataRequired(), Email()])
     submit = SubmitField('Send reset link')
 
+    def validate_email(self, field):
+        """validate whether the user exists in the database"""
+        email = field.data
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            raise ValidationError('Email address does exist.')
+
 class OpenAIForm(FlaskForm):
     """Form for SAS input"""
     sas = TextAreaField('SAS', validators=[DataRequired()])

@@ -1,6 +1,5 @@
 from datetime import datetime
 from enum import Enum
-from sre_constants import SUCCESS
 
 from flask_login import UserMixin
 

@@ -4,10 +4,13 @@
 
 {% endblock %}
     {% block content %}
-      <div class="d-flex flex-column justify-content-between container-md w-50 fs-2" style="padding-top: 80px;"><div><span class="fw-bold text-primary">Modernize</span> your SAS codes <span class="fs-3 fst-italic">with</span> <span class="fw-bold text-primary-emphasis fs-1">AI</span></div></div>
-      <div class = "container-sm w-50 p-2 " style="overflow: auto;">
-  
+
+      <div class = "container-sm p-2 mt-5">
+        
       <div class=" d-flex flex-column justify-content-center ">
+        <div class = "fs-2" style="padding-top: 80px;">
+          <span class="fw-bold  text-primary">Modernize</span> your SAS codes <span class="fs-3 fst-italic">with</span> <span class="fw-bold text-primary-emphasis fs-1">AI</span>
+        </div>
       <form action="" method="post">
           {% for message in messages %}
           <div> {{ message }} </div>
@@ -21,7 +24,7 @@
               {% endfor %}
           </div>
           
-          <div class="mb-3">{{ form.submit(class_="form-control bg-dark text-light") }}</div>
+          <div class="mb-3">{{ form.submit(class="form-control bg-dark text-light") }}</div>
           {% if responses %}
           <div class="mb-3 form-control bg-dark text-light">
             Data Flow Chart:

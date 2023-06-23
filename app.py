@@ -26,10 +26,12 @@ file_handler.setFormatter(formatter)
 # Add the file handler to the logger
 logger.addHandler(file_handler)
 
-logger.info("test")
 # load environment
 load_dotenv()
 
+# initiate db, login_manager
+db = SQLAlchemy()
+login_manager = LoginManager()
 # create the app
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -45,9 +47,8 @@ if env == 'production':
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI_DEV")
 # initialize the app with the extension
-db = SQLAlchemy(app)
+db.init_app(app)
 # initialize login manager
-login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 # mail
