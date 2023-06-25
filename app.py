@@ -40,6 +40,7 @@ app.config["MAIL_PORT"] = os.getenv("MAIL_PORT")
 app.config["MAIL_USE_TLS"] = os.getenv("MAIL_USE_TLS")
 app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
+app.config["MAIL_DEFAULT_SENDER"] = os.getenv("MAIL_DEFAULT_SENDER")
 env = os.getenv("FLASK_ENV")
 # configure the SQLite database, relative to the app instance folder\
 if env == 'production':
