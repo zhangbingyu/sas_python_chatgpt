@@ -1,10 +1,13 @@
-from app import app, email
 from flask_mail import Message
+
+from app import email
+
 
 # @app.route("/sendmail")
 def send_mail(recipient, subject, message):
-    msg = Message(subject=subject, sender='contact@themodeladvantage.com',
+    """send emails"""
+    msg = Message(subject=subject,
                 recipients=[recipient])
-    msg.body = message
+    msg.html = message
     email.send(msg)
     return "Done. Please check your email for instructions."
