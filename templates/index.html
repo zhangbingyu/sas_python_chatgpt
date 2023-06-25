@@ -4,14 +4,20 @@
 
 {% endblock %}
     {% block content %}
-
+  <script>
+    function updateAndSubmit() {
+      var input = document.getElementById("mysubmit");
+      input.value = "Analyzing...";
+      document.getElementById("sasform").submit();
+    }
+</script>
       <div class = "container-sm p-2 mt-5">
         
       <div class=" d-flex flex-column justify-content-center ">
         <div class = "fs-2" style="padding-top: 0.4em;">
           <span class="fw-bold  text-primary">Modernize</span> your SAS codes <span class="fs-3 fst-italic">with</span> <span class="fw-bold text-primary-emphasis fs-1">AI</span>
         </div>
-      <form action="" method="post">
+      <form id="sasform" action="" method="post">
           {% for message in messages %}
           <div> {{ message }} </div>
           {% endfor %}
@@ -24,7 +30,8 @@
               {% endfor %}
           </div>
           
-          <div class="mb-3">{{ form.submit(class="form-control bg-dark text-light") }}</div>
+          <div class="mb-3">{{ form.submit(class="form-control bg-dark text-light", id="mysubmit", onclick="updateAndSubmit()") }}</div>
+
           {% if responses %}
           <div class="mb-3 form-control bg-dark text-light">
             Data Flow Chart:
@@ -49,3 +56,4 @@
 
 </div>
 {% endblock %} 
+

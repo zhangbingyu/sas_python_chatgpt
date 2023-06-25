@@ -85,7 +85,7 @@ def home():
             price = get_price(sas_code)
             if price > current_user.credit:
                 flash("Not enough credit!")
-                return render_template("message.html", redirect_url=url_for("home"))
+                return render_template("message.html", messages=get_flashed_messages(), redirect_url=url_for("home"))
             messages = [
                 {"role": "system", "content": system_message},
                 {"role": "user", "content": dedent(user_message + f"```{sas_code}```")}
