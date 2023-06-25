@@ -72,7 +72,7 @@ def forgot_password():
             # generate reset token
             token = generate_jwt_token(user)
             message = f"""
-                Please click this <a href="url_for("reset", token=token)">link</a> to reset your password.
+                Please click this <a href="{url_for('reset', token=token, _external=True)}">link</a> to reset your password.
                 The link expires after 5 minutes.
             """
             topic = "Password Reset"
@@ -80,9 +80,8 @@ def forgot_password():
             # send an email to user.email
             send_mail(recipient, topic, message)
             flash(f"Email has been sent to {user.email}. Follow the instructions.")
-            flash(f"You will be redirected to {request.host_url + url_for('login')} in 10 seconds.")
             return render_template("message.html", messages=get_flashed_messages(),
-                                   redirect_url=url_for("login"))
+                                   redirect_url=url_for("login", _external=True))
         flash(f"{form.email.data} does not exist.")
         return render_template("forgot_password.html", messages=get_flashed_messages())
     return render_template("forgot_password.html", form=form)
