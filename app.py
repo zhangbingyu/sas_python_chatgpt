@@ -60,6 +60,7 @@ import models
 import sasai
 import mail
 import user
+import privacy_tos
 
 # from models import User
 

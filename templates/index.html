@@ -3,57 +3,70 @@
 {% block title %}
 
 {% endblock %}
-    {% block content %}
-  <script>
-    function updateAndSubmit() {
-      var input = document.getElementById("mysubmit");
-      input.value = "Analyzing...";
-      document.getElementById("sasform").submit();
-    }
+{% block content %}
+<script>
+  function updateAndSubmit() {
+    var input = document.getElementById("mysubmit");
+    input.value = "Analyzing...";
+    document.getElementById("sasform").submit();
+  }
 </script>
-      <div class = "container-sm p-2 mt-5">
-        
+<div class="container p-2 mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
       <div class=" d-flex flex-column justify-content-center ">
-        <div class = "fs-2" style="padding-top: 0.4em;">
-          <span class="fw-bold  text-primary">Modernize</span> your SAS codes <span class="fs-3 fst-italic">with</span> <span class="fw-bold text-primary-emphasis fs-1">AI</span>
+        <div class="fs-2" style="padding-top: 0.4em;">
+          <span class="fw-bold  text-primary">Modernize</span> your SAS codes <span class="fs-3 fst-italic">with</span>
+          <span class="fw-bold text-primary-emphasis fs-1">AI </span>
         </div>
-      <form id="sasform" action="" method="post">
+        <div class="fs-3 mb-3"> <span class="fw-bold text-primary-emphasis"> Python version</span> is just <span
+            class="fw-bold">one click</span> away</div>
+        <form id="sasform" action="" method="post">
           {% for message in messages %}
           <div> {{ message }} </div>
           {% endfor %}
           {{ form.hidden_tag() }}
           <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Please paste your SAS Codes below</label>
-              {{ form.sas(rows="20", class="form-control") }}
-              {% for error in form.sas.errors %}
-              <span style="color: red;">[{{ error }}]</span>
-              {% endfor %}
+            <!-- {% if not current_user.is_authenticated %}
+            <div for="sas_input" class="form-label">Please sign in first.</div>
+    
+            {% endif %} -->
+            {% if not current_user.is_authenticated %}
+            {{ form.sas(rows="20", class="form-control", placeholder="Please sign in first.") }}
+            {% else %}
+            {{ form.sas(rows="20", class="form-control", placeholder="Paste/type your SAS code here.") }}
+            {% endif %}
+            {% for error in form.sas.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
           </div>
-          
-          <div class="mb-3">{{ form.submit(class="form-control bg-dark text-light", id="mysubmit", onclick="updateAndSubmit()") }}</div>
+
+          <div class="mb-3">{{ form.submit(class="form-control bg-dark text-light", id="mysubmit",
+            onclick="updateAndSubmit()") }}</div>
 
           {% if responses %}
           <div class="mb-3 form-control bg-dark text-light">
             Data Flow Chart:
           </div>
           <div class="mb-3 justify-content-center">
-          {{chart_output|safe}}
-        </div>
+            {{chart_output|safe}}
+          </div>
           <div class="mb-3 form-control bg-dark text-light">
             Python Code:
             <span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
-              <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
-            </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files"
+                viewBox="0 0 16 16">
+                <path
+                  d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z" />
+              </svg>
             </span>
-          </div>  
-            {{ responses | safe }}
-       
-       {% endif %}
-      </form>
-      
+          </div>
+          {{ responses | safe }}
+
+          {% endif %}
+        </form>
+      </div>
     </div>
-
+  </div>
 </div>
-{% endblock %} 
-
+{% endblock %}
